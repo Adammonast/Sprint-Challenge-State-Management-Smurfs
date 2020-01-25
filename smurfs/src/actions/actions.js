@@ -1,7 +1,7 @@
 import axios from "axios";
 export const FETCHING_START = "FETCHING_START";
 export const FETCHING_SUCCESS = "FETCHING_SUCCESS";
-export const FETCHING_SMURF = "FETCHING_SMURF";
+export const ADD_SMURF = "ADD_SMURF";
 export const FETCHING_FAILURE = "FETCHING_FAILURE";
 
 export const fetchSmurfs = () => dispatch => {
@@ -11,6 +11,9 @@ export const fetchSmurfs = () => dispatch => {
   .catch(err => {dispatch({type: "FETCHING_FAILURE", payload: err.response})});
 };
 
-export const addSmurf = newSmurf => {
-    return {type: "FETCHING_SMURF", payload: newSmurf}
-}
+export const addSmurf = newSmurf => dispatch => {
+    dispatch({type: ADD_SMURF, payload: newSmurf});
+    axios.post("http://localhost:3333/smurfs")
+    .then(response => {dispatch({type: "FETCHING_SUCCESS", payload: response.data})})
+  .catch(err => {dispatch({type: "FETCHING_FAILURE", payload: err.response})});
+};

@@ -1,12 +1,12 @@
-import { FETCHING_START, FETCHING_SUCCESS, FETCHING_SMURF } from "../actions/actions";
+import { FETCHING_START, FETCHING_SUCCESS, ADD_SMURF } from "../actions/actions";
 
 const initialState = {
-    isLoading: false,
+    isFetching: false,
     smurfs: [
         {
-            name: "",
-            age: "",
-            height: "",
+            name: "Brainey",
+            age: 200,
+            height: "5cm",
         }
     ]
 }
@@ -16,26 +16,27 @@ export const reducer = (state = initialState, action) => {
         case FETCHING_START:
             return {
                 ...state,
-                isLoading: true
+                isFetching: true
             };
         case FETCHING_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                smurfs: [{...action.payload}]
+                isFetching: false,
+                // smurfs: [{...action.payload}]
+                smurf: action.payload
             };
-        case FETCHING_SMURF: 
+        case ADD_SMURF: 
             return {
                 ...state,
-                isLoading: false,
+                isFetching: false,
                 smurfs: [
-                    ...state.smurfs,
-                    {
-                        name: action.payload,
-                        age: action.payload,
-                        height: action.payload,
-                    }
-                ]
+                    // ...state.smurfs,
+                    // {
+                    //     name: action.payload,
+                    //     age: action.payload,
+                    //     height: action.payload,
+                    // }
+                    {...action.payload}]
             }
             default: 
             return state;
